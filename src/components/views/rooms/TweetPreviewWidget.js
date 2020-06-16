@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { AllHtmlEntities } from 'html-entities';
 import * as sdk from "../../../index";
 import { _t } from "../../../languageHandler";
 
 export default class TweetPreviewWidget extends React.Component {
+    constructor(props) {
+        super(props);
+        this.previewRef = React.createRef();
+    }
+
     static propTypes = {
         link: PropTypes.string.isRequired, // the URL being previewed
         onCancelClick: PropTypes.func, // called when the preview's cancel ('hide') button is clicked
@@ -43,7 +48,7 @@ export default class TweetPreviewWidget extends React.Component {
         this.unmounted = false;
 
         const callback = "loadTweet" + Math.round(Math.random() * 99999999);
-        this.jsonpFetch("https://publish.twitter.com/oembed?url="+this.props.link+"&callback="+callback+"&dnt=true&omit_script=1", callback, 5)
+        this.jsonpFetch("https://publish.twitter.com/oembed?url="+this.props.link+"&callback="+callback+"&dnt=true&omit_script=1&maxwidth=500&limit=3", callback, 5)
             .then((json) => {
                 if (!this.unmounted) {
                     this.setState({ oEmbedPayload: json })
@@ -55,8 +60,9 @@ export default class TweetPreviewWidget extends React.Component {
     componentDidUpdate() {
         let twitterScript = document.createElement("script");
         twitterScript.src = "https://platform.twitter.com/widgets.js";
+        twitterScript.type = 'text/javascript'
         twitterScript.async = true;
-        document.getElementsByTagName('body')[0].appendChild(twitterScript);
+        this.previewRef.current.appendChild(twitterScript);
     };
 
     componentWillUnmount() {
@@ -74,7 +80,7 @@ export default class TweetPreviewWidget extends React.Component {
 
         return (
             <div className="mx_TweetPreviewWidget" >
-                <div className="mx_TweetPreviewWidget_container" dangerouslySetInnerHTML={card} />
+                <div className="mx_TweetPreviewWidget_container" dangerouslySetInnerHTML={card} ref={this.previewRef} />
                 <AccessibleButton className="mx_TweetPreviewWidget_cancel" onClick={this.props.onCancelClick} aria-label={_t("Close preview")}>
                     <img className="mx_filterFlipColor" alt="" role="presentation"
                         src={require("../../../../res/img/cancel.svg")} width="18" height="18" />
