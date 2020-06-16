@@ -6,7 +6,7 @@ import * as sdk from "../../../index";
 import { _t } from "../../../languageHandler";
 
 export default createReactClass({
-    displayName: 'OembedPreviewWidget',
+    displayName: 'TweetPreviewWidget',
 
     propTypes: {
         link: PropTypes.string.isRequired, // the URL being previewed
@@ -76,9 +76,9 @@ export default createReactClass({
         const AccessibleButton = sdk.getComponent('elements.AccessibleButton');
 
         return (
-            <div className="mx_OembedPreviewWidget" >
-                <div className="mx_OembedPreviewWidget_container" dangerouslySetInnerHTML={card} />
-                <AccessibleButton className="mx_OembedPreviewWidget_cancel" onClick={this.props.onCancelClick} aria-label={_t("Close preview")}>
+            <div className="mx_TweetPreviewWidget" >
+                <div className="mx_TweetPreviewWidget_container" dangerouslySetInnerHTML={card} />
+                <AccessibleButton className="mx_TweetPreviewWidget_cancel" onClick={this.props.onCancelClick} aria-label={_t("Close preview")}>
                     <img className="mx_filterFlipColor" alt="" role="presentation"
                         src={require("../../../../res/img/cancel.svg")} width="18" height="18" />
                 </AccessibleButton>

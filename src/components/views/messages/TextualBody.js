@@ -433,12 +433,12 @@ export default createReactClass({
 
         let widgets;
         if (this.state.links.length && !this.state.widgetHidden && this.props.showUrlPreview) {
-            const OembedPreviewWidget = sdk.getComponent('rooms.OembedPreviewWidget');
+            const TweetPreviewWidget = sdk.getComponent('rooms.TweetPreviewWidget');
             const LinkPreviewWidget = sdk.getComponent('rooms.LinkPreviewWidget');
             widgets = this.state.links.map((link)=>{
                 var url = new URL(link);
                 if (url.hostname.endsWith("twitter.com")) {
-                    return <OembedPreviewWidget
+                    return <TweetPreviewWidget
                                 key={link}
                                 link={link}
                                 onCancelClick={this.onCancelClick} />;

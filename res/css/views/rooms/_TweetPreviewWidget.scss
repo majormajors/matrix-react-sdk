@@ -1,4 +1,4 @@
-.mx_OembedPreviewWidget {
+.mx_TweetPreviewWidget {
     margin-top: 15px;
     margin-right: 15px;
     margin-bottom: 15px;
@@ -6,11 +6,11 @@
     color: $preview-widget-fg-color;
 }
 
-.mx_OembedPreviewWidget_container {
+.mx_TweetPreviewWidget_container {
     flex: 1 1 auto;
 }
 
-.mx_OembedPreviewWidget_cancel {
+.mx_TweetPreviewWidget_cancel {
     cursor: pointer;
     width: 18px;
     height: 18px;
@@ -21,13 +21,13 @@
     }
 }
 
-.mx_OembedPreviewWidget:hover .mx_OembedPreviewWidget_cancel img,
-.mx_OembedPreviewWidget_cancel.focus-visible:focus img {
+.mx_TweetPreviewWidget:hover .mx_TweetPreviewWidget_cancel img,
+.mx_TweetPreviewWidget_cancel.focus-visible:focus img {
     visibility: visible;
 }
 
 .mx_MatrixChat_useCompactLayout {
-    .mx_OembedPreviewWidget {
+    .mx_TweetPreviewWidget {
         margin-top: 6px;
         margin-bottom: 6px;
     }
