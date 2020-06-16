@@ -35,6 +35,7 @@ import {IntegrationManagers} from "../../../integrations/IntegrationManagers";
 import {isPermalinkHost} from "../../../utils/permalinks/Permalinks";
 import {toRightOf} from "../../structures/ContextMenu";
 import {copyPlaintext} from "../../../utils/strings";
+import TweetPreviewWidget from "../rooms/TweetPreviewWidget"
 
 export default createReactClass({
     displayName: 'TextualBody',
@@ -433,7 +434,6 @@ export default createReactClass({
 
         let widgets;
         if (this.state.links.length && !this.state.widgetHidden && this.props.showUrlPreview) {
-            const TweetPreviewWidget = sdk.getComponent('rooms.TweetPreviewWidget');
             const LinkPreviewWidget = sdk.getComponent('rooms.LinkPreviewWidget');
             widgets = this.state.links.map((link)=>{
                 var url = new URL(link);

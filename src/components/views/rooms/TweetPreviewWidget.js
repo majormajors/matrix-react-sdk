@@ -1,25 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import { AllHtmlEntities } from 'html-entities';
 import * as sdk from "../../../index";
 import { _t } from "../../../languageHandler";
 
-export default createReactClass({
-    displayName: 'TweetPreviewWidget',
-
-    propTypes: {
+export default class TweetPreviewWidget extends React.Component {
+    static propTypes = {
         link: PropTypes.string.isRequired, // the URL being previewed
         onCancelClick: PropTypes.func, // called when the preview's cancel ('hide') button is clicked
-    },
+    }
 
-    getInitialState: function() {
-        return {
-            oEmbedPayload: null,
-        };
-    },
+    static defaultProps = { oEmbedPayload: null };
 
-    jsonpFetch: function(url, callback, timeout) {
+    state = {
+        oEmbedPayload: null
+    };
+
+    jsonpFetch = function(url, callback, timeout) {
         return new Promise((resolve, reject) => {
             let script = document.createElement('script')
             let timeout_trigger = window.setTimeout(() => {
@@ -40,33 +37,31 @@ export default createReactClass({
 
             document.getElementsByTagName('head')[0].appendChild(script)
         })
-    },
+    };
 
-    // TODO: [REACT-WARNING] Replace component with real class, use constructor for refs
-    UNSAFE_componentWillMount: function() {
+    componentDidMount() {
         this.unmounted = false;
         this.jsonpFetch("https://publish.twitter.com/oembed?url="+this.props.link+"&callback=waf&dnt=true&chrome=nofooter&omit_script=1", "waf", 5)
             .then((json) => {
-                this.setState({ oEmbedPayload: json })
+                if (!this.unmounted) {
+                    this.setState({ oEmbedPayload: json })
+                }
             })
             .catch((err) => console.log(err))
-    },
+    };
 
-    componentDidMount: function() {
-    },
-
-    componentDidUpdate: function() {
+    componentDidUpdate() {
         let twitterScript = document.createElement("script");
         twitterScript.src = "https://platform.twitter.com/widgets.js";
         twitterScript.async = true;
         document.getElementsByTagName('body')[0].appendChild(twitterScript);
-    },
+    };
 
-    componentWillUnmount: function() {
+    componentWillUnmount() {
         this.unmounted = true;
-    },
+    };
 
-    render: function() {
+    render() {
         const p = this.state.oEmbedPayload;
         if (!p || Object.keys(p).length === 0) {
             return <div />;
@@ -84,5 +79,5 @@ export default createReactClass({
                 </AccessibleButton>
             </div>
         );
-    },
-});
+    };
+}
