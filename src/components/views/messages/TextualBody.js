@@ -433,14 +433,25 @@ export default createReactClass({
 
         let widgets;
         if (this.state.links.length && !this.state.widgetHidden && this.props.showUrlPreview) {
+            const OembedPreviewWidget = sdk.getComponent('rooms.OembedPreviewWidget');
             const LinkPreviewWidget = sdk.getComponent('rooms.LinkPreviewWidget');
             widgets = this.state.links.map((link)=>{
-                return <LinkPreviewWidget
-                            key={link}
-                            link={link}
-                            mxEvent={this.props.mxEvent}
-                            onCancelClick={this.onCancelClick}
-                            onHeightChanged={this.props.onHeightChanged} />;
+                var url = new URL(link);
+                if (url.hostname.endsWith("twitter.com")) {
+                    return <OembedPreviewWidget
+                                key={link}
+                                link={link}
+                                mxEvent={this.props.mxEvent}
+                                onCancelClick={this.onCancelClick}
+                                onHeightChanged={this.props.onHeightChanged} />;
+                } else {
+                    return <LinkPreviewWidget
+                                key={link}
+                                link={link}
+                                mxEvent={this.props.mxEvent}
+                                onCancelClick={this.onCancelClick}
+                                onHeightChanged={this.props.onHeightChanged} />;
+                }
             });
         }
 
