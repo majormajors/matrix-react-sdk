@@ -41,7 +41,9 @@ export default class TweetPreviewWidget extends React.Component {
 
     componentDidMount() {
         this.unmounted = false;
-        this.jsonpFetch("https://publish.twitter.com/oembed?url="+this.props.link+"&callback=waf&dnt=true&chrome=nofooter&omit_script=1", "waf", 5)
+
+        const callback = "loadTweet" + Math.round(Math.random() * 99999999);
+        this.jsonpFetch("https://publish.twitter.com/oembed?url="+this.props.link+"&callback="+callback+"&dnt=true&omit_script=1", callback, 5)
             .then((json) => {
                 if (!this.unmounted) {
                     this.setState({ oEmbedPayload: json })
