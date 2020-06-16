@@ -441,9 +441,7 @@ export default createReactClass({
                     return <OembedPreviewWidget
                                 key={link}
                                 link={link}
-                                mxEvent={this.props.mxEvent}
-                                onCancelClick={this.onCancelClick}
-                                onHeightChanged={this.props.onHeightChanged} />;
+                                onCancelClick={this.onCancelClick} />;
                 } else {
                     return <LinkPreviewWidget
                                 key={link}

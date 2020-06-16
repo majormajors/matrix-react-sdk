@@ -10,9 +10,7 @@ export default createReactClass({
 
     propTypes: {
         link: PropTypes.string.isRequired, // the URL being previewed
-        mxEvent: PropTypes.object.isRequired, // the Event associated with the preview
         onCancelClick: PropTypes.func, // called when the preview's cancel ('hide') button is clicked
-        onHeightChanged: PropTypes.func, // called when the preview's contents has loaded
     },
 
     getInitialState: function() {
@@ -79,7 +77,7 @@ export default createReactClass({
 
         return (
             <div className="mx_OembedPreviewWidget" >
-                <div dangerouslySetInnerHTML={card} />
+                <div className="mx_OembedPreviewWidget_container" dangerouslySetInnerHTML={card} />
                 <AccessibleButton className="mx_OembedPreviewWidget_cancel" onClick={this.props.onCancelClick} aria-label={_t("Close preview")}>
                     <img className="mx_filterFlipColor" alt="" role="presentation"
                         src={require("../../../../res/img/cancel.svg")} width="18" height="18" />

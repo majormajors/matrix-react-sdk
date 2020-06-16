@@ -6,6 +6,10 @@
     color: $preview-widget-fg-color;
 }
 
+.mx_OembedPreviewWidget_container {
+    flex: 1 1 auto;
+}
+
 .mx_OembedPreviewWidget_cancel {
     cursor: pointer;
     width: 18px;
