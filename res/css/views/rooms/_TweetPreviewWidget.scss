@@ -1,0 +1,34 @@
+.mx_TweetPreviewWidget {
+    margin-top: 15px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    color: $preview-widget-fg-color;
+}
+
+.mx_TweetPreviewWidget_container {
+    flex: 1 1 auto;
+}
+
+.mx_TweetPreviewWidget_cancel {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+
+    img {
+        flex: 0 0 40px;
+        visibility: hidden;
+    }
+}
+
+.mx_TweetPreviewWidget:hover .mx_TweetPreviewWidget_cancel img,
+.mx_TweetPreviewWidget_cancel.focus-visible:focus img {
+    visibility: visible;
+}
+
+.mx_MatrixChat_useCompactLayout {
+    .mx_TweetPreviewWidget {
+        margin-top: 6px;
+        margin-bottom: 6px;
+    }
+}

@@ -35,6 +35,7 @@ import {IntegrationManagers} from "../../../integrations/IntegrationManagers";
 import {isPermalinkHost} from "../../../utils/permalinks/Permalinks";
 import {toRightOf} from "../../structures/ContextMenu";
 import {copyPlaintext} from "../../../utils/strings";
+import TweetPreviewWidget from "../rooms/TweetPreviewWidget"
 
 export default createReactClass({
     displayName: 'TextualBody',
@@ -435,12 +436,20 @@ export default createReactClass({
         if (this.state.links.length && !this.state.widgetHidden && this.props.showUrlPreview) {
             const LinkPreviewWidget = sdk.getComponent('rooms.LinkPreviewWidget');
             widgets = this.state.links.map((link)=>{
-                return <LinkPreviewWidget
-                            key={link}
-                            link={link}
-                            mxEvent={this.props.mxEvent}
-                            onCancelClick={this.onCancelClick}
-                            onHeightChanged={this.props.onHeightChanged} />;
+                var url = new URL(link);
+                if (url.hostname.endsWith("twitter.com")) {
+                    return <TweetPreviewWidget
+                                key={link}
+                                link={link}
+                                onCancelClick={this.onCancelClick} />;
+                } else {
+                    return <LinkPreviewWidget
+                                key={link}
+                                link={link}
+                                mxEvent={this.props.mxEvent}
+                                onCancelClick={this.onCancelClick}
+                                onHeightChanged={this.props.onHeightChanged} />;
+                }
             });
         }
 
